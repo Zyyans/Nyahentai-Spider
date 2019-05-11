@@ -28,7 +28,7 @@ while True:
     
             if key == 'all':
                 letters = 'abcdefghijklmnopqrstuvwxyz'
-                print('\n<< 已添加所有字母\n')
+                print('\n<< 已添加从 a 到 z 的所有字母至待处理列表\n')
     
             elif key == 'loc':
                 temp = m1func.pull_from_local()
@@ -40,11 +40,18 @@ while True:
     
             elif key == 'end':
                 if letters:
+                    print('\n<< 待处理列表重复已处理')
                     characters = m1func.get_characters("".join(set(letters)))
+                else:
+                    print('\n<< 待处理列表为空, 已跳过角色获取模块\n')
                 break
     
             else:
                 letters = letters + key
+                print('\n<< 字母 ', end='')
+                for letter in key:
+                    print(letter + ' ', end='')
+                print('已添加至待处理列表\n')
     
         print('\n<< 角色列表处理完成')
         print('<< 资源获取模块开始运行\n')
@@ -60,6 +67,10 @@ while True:
 
         while True:
             name = input()
+
+            if name == 'end':
+                break
+
             chinese = input()
             if chinese == 'yes':
                 chinese = True
@@ -68,24 +79,22 @@ while True:
             elif chinese == 'end':
                 break
             else:
-                print('\n状态码错误! 请重新输入\n')
+                print('\n>> 状态码错误! 请重新输入\n')
                 continue
             if name == 'all':
-                print('\n请求已接受, 正在处理')
+                print('\n<< 已接受请求, 正在处理')
                 for name in characters.keys():
                     print(name)
                     m1func.get_one_character(name, chinese)
                 break
-            elif name == 'end':
-                break
             else:
                 if name in characters.keys():
-                    print('\n请求已接受, 正在处理')
+                    print('\n<< 已接受请求, 正在处理')
                     m1func.get_one_character(name, chinese)
                 else:
-                    print('\n该角色不存在于列表中! 请重新输入\n')
+                    print('\n>> 该角色不存在于列表中! 请重新输入\n')
         break
     else:
-        print('\n模式代码错误! 请重新输入\n')
+        print('\n>> 模式代码错误! 请重新输入\n')
 
 input('>> 程序运行结束, 祝您食用愉快')

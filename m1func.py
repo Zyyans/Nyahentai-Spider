@@ -24,7 +24,7 @@ def get_characters(letters):
 
     returns = {}
     origin = 'https://zh.nyahentai.com/characters/'
-    print('\n<< 正在获取角色列表\n')
+    print('<< 正在获取角色列表\n')
 
     for letter in letters:
 
@@ -118,16 +118,16 @@ def get_one_character(character, chinese):
             print('\n - ' + name + ' 获取中')
             save_book(character[0], name, origin + link)
 
-        print('\n该角色资源获取完成\n')
+        print('\n<< 该角色资源获取完成\n')
 
     elif chinese and response.status_code == 404:
 
-        print('该角色不存在中文资源!')
+        print('>> 该角色不存在中文资源!')
         return
 
     else:
 
-        print('获取异常!')
+        print('>> 获取异常!')
         return
 
 

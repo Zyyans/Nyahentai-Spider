@@ -24,7 +24,7 @@ def get_characters(letters):
 
     returns = {}
     origin = 'https://zh.nyahentai.com/characters/'
-    print('\n正在获取角色列表')
+    print('\n[蠢驴制造]正在获取角色列表\n')
 
     for letter in letters:
 
@@ -53,12 +53,13 @@ def get_characters(letters):
                 print(' - 连接失败')
                 pass
 
-        print('首字母为 ' + letter + ' 的角色列表获取完毕, 正在打印\n请到根目录查看列表\n')
+        print('首字母为 ' + letter + ' 的角色列表获取完毕\n请到根目录查看角色列表\n')
 
-        if not exists(letter + '/'):
-            makedirs(letter + '/')
+        path = 'nya/' + letter + '/'
+        if not exists(path):
+            makedirs(path)
 
-        with open(letter + '/list.txt', 'w') as file:
+        with open(path + 'list.txt', 'w', encoding='utf-8') as file:
             for name, number in characters.items():
                 file.write(name + ' - 资源数: ' + str(number) + '\n')
 
@@ -69,7 +70,7 @@ def get_characters(letters):
 
 def save_book(letter, name, url):
 
-    path = letter + '/' + name + '/'
+    path = 'nya/' + letter + '/' + name + '/'
     if not exists(path):
         makedirs(path)
 
@@ -92,7 +93,7 @@ def save_book(letter, name, url):
 
         except:
 
-            print(' - 超时')
+            print(' - 获取超时')
 
 
 def get_one_character(character, chinese):

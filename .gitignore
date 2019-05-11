@@ -1,6 +1,10 @@
+#build
+*.spec
+build/
+
+#vscode
 .vscode/
 __pycache__/
-nya/
-build/
-spider.spec
 
+#debug
+nya/

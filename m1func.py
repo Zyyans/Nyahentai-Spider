@@ -15,7 +15,7 @@ def get_one_page(soup):
     for node in nodes:
         name = str(search('<a.*?>(.*?)\s<', str(node)).group(1))
         number = str(search('t">.*?[(](.*?)[)].*?<', str(node)).group(1))
-        characters[name] = number
+        characters[name.replace('. ', '').replace(' ', '-')] = number
 
     return characters
 
@@ -24,7 +24,7 @@ def get_characters(letters):
 
     returns = {}
     origin = 'https://zh.nyahentai.com/characters/'
-    print('\n[蠢驴制造]正在获取角色列表\n')
+    print('\n<< 正在获取角色列表\n')
 
     for letter in letters:
 
@@ -53,13 +53,14 @@ def get_characters(letters):
                 print(' - 连接失败')
                 pass
 
-        print('首字母为 ' + letter + ' 的角色列表获取完毕\n请到根目录查看角色列表\n')
+        print('\n>> 首字母为 ' + letter + ' 的角色列表获取完毕')
+        print('>> 请到 nya/' + letter + '/list.txt 查看角色列表\n')
 
         path = 'nya/' + letter + '/'
         if not exists(path):
             makedirs(path)
 
-        with open(path + 'list.txt', 'w', encoding='utf-8') as file:
+        with open(path + 'list.txt', 'w', encoding='gbk') as file:
             for name, number in characters.items():
                 file.write(name + ' - 资源数: ' + str(number) + '\n')
 
@@ -100,8 +101,7 @@ def get_one_character(character, chinese):
 
     origin = 'https://zh.nyahentai.com'
 
-    url = origin + '/character/' + \
-        character.replace('. ', '-').replace(' ', '-')
+    url = origin + '/character/' + character
     if chinese:
         url = url + '/chinese'
 
@@ -129,3 +129,30 @@ def get_one_character(character, chinese):
 
         print('获取异常!')
         return
+
+
+def pull_from_local():
+
+    path = 'nya/'
+
+    if not exists(path):
+        return
+
+    characters = {}
+    
+    for letter in 'abcdefghijklmnopqrstuvwxyz':
+
+        each_path = path + letter + '/list.txt'
+        
+        if not exists(each_path):
+            continue
+
+        with open(each_path, 'r', encoding='gbk') as list_file:
+            for line in list_file:
+                content = line.split(' - 资源数: ')
+                characters[content[0]] = content[1].replace('\n', '')
+
+    if characters:
+        return characters
+    else:
+        return None

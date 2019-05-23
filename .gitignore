@@ -8,3 +8,7 @@ __pycache__/
 
 #debug
 nya/
+nyahentai/
+*.html
+*.txt
+test.py

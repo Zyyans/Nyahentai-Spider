@@ -4,6 +4,8 @@
 
 **to do list:**
 
-  List().pull_from_locol
+  ~~List().pull_from_locol~~
   
-  Book()
+  class Character()
+
+  class Book()

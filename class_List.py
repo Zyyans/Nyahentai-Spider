@@ -15,7 +15,7 @@ class List(Page):
         self.list = {}
 
     def network_init(self):
-        self.url = 'https://zh.nyahentai.net/characters/' + self.letter + '/'
+        self.url = self.mainurl + 'characters/' + self.letter + '/'
         self.soup = self.soup_init(self.url)
         if self.soup:
             print('\n[Info] 首字母为 ' + self.letter + ' 的角色列表初始化完毕\n')
@@ -26,7 +26,7 @@ class List(Page):
         if self.pull_from_local():
             print('\n[Info] 已从本地获取首字母为 ' + self.letter + ' 的角色列表\n')
         else:
-            print('\n[Info] 未从本地找到首字母为 ' + self.letter + ' 的角色列表\n')
+            print('\n[Info] 未在本地找到首字母为 ' + self.letter + ' 的角色列表\n')
         ques = '>> 是否联网获取首字母为 ' + self.letter + ' 的角色列表(yes/no)? '
         ans = input(ques)
         while True:
@@ -37,7 +37,8 @@ class List(Page):
                 else:
                     print('\n[Info] 获取角色列表时出现异常')
                 if self.push_to_local():
-                    print('[Info] 角色列表已保存到本地\n')
+                    print('[Info] 角色列表已保存到本地')
+                    print('[Info] 路径为: 软件目录/' + self.path + '\n')
                 else:
                     print('[Info] 保存角色列表时出现异常\n')
                 break

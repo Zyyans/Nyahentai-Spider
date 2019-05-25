@@ -8,4 +8,7 @@
   
   class Character()
 
+  > def get_books_list(chinese)
+  > def print_book_list(chinese)
+  
   class Book()

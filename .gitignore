@@ -12,3 +12,6 @@ nyahentai/
 *.html
 *.txt
 test.py
+
+#other
+.gitignore

@@ -12,8 +12,8 @@
   >
   > def print_book_list(chinese)
   >
-  > def push_to_local
+  > def push_to_local()
   >
-  > def pull_from_local
+  > def pull_from_local()
   
   class Book()

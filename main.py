@@ -2,13 +2,25 @@ from bs4 import BeautifulSoup
 from os import makedirs
 from os.path import exists
 from requests import get
+from time import sleep
 
+
+def get_page(url):
+
+    while True:
+
+        try:
+            page = get(url, headers={'Connection': 'close'})
+            return page
+        except:
+            sleep(3)
 
 def get_soup(url):
-    return BeautifulSoup(get(url, headers={'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36'}).text, 'lxml')
-
+    
+    return BeautifulSoup(get_page(url).text, 'lxml')
+    
 def make_dir(path):
+    
     if exists(path) == False:
         makedirs(path)
 
@@ -80,7 +92,7 @@ while True:
                 pic_number = str(pic_soup.find('span', {'class': 'current'}).text)
                 pic_content = pic_soup.find('img', {'class': 'current-img fit-horizontal'}).attrs['src']
                 with open(bok_path + pic_number + '.jpg', 'wb') as jpg:
-                    jpg.write(get(pic_content).content)
+                    jpg.write(get_page(pic_content).content)
                 print('.', end='')
 
         if (cha_soup.find('a', {'rel': 'next'}) == None):
